@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" placeholder="" id="inputbox">
+        <div>
+            <button class="operator">AC</button>
+            <button class="operator">DEL</button>
+            <button class="operator">%</button>
+            <button class="operator">/</button>
+        </div>
+        <div>
+            <button>7</button>
+            <button>8</button>
+            <button>9</button>
+            <button class="operator">*</button>
+        </div>
+        <div>
+            <button>4</button>
+            <button>5</button>
+            <button>6</button>
+            <button class="operator">-</button>
+        </div>
+        <div>
+            <button>1</button>
+            <button>2</button>
+            <button>3</button>
+            <button class="operator">+</button>
+        </div>
+        
+        <div>
+            <button>00</button>
+            <button>0</button>
+            <button>.</button>
+            <button class="equalBtn">=</button>
+        </div>
+    </div>
+    <script>
+        const input = document.getElementById('inputbox');
+        let string = "";
+
+        function clearInput() {
+            string = "";
+            input.value = string;
+        }
+
+        function deleteLastChar() {
+            string = string.slice(0, -1);
+            input.value = string;
+        }
+
+        function appendCharacter(char) {
+            string += char;
+            input.value = string;
+        }
+
+        function evaluateExpression() {
+            try {
+                string = eval(string || "0").toString();
+                input.value = string;
+            } catch (error) {
+                input.value = "Error";
+                string = "";
+            }
+        }
+
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', () => {
+                const value = button.textContent.trim();
+
+                if (value === 'AC') {
+                    clearInput();
+                } else if (value === 'DEL') {
+                    deleteLastChar();
+                } else if (value === '=') {
+                    evaluateExpression();
+                } else {
+                    appendCharacter(value);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
